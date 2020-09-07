@@ -19,4 +19,7 @@ provider "aws" {
 resource "aws_instance" "example" {
    ami           = "ami-0a13d44dccf1f5cf6"
    instance_type = "t2.micro"
+   provisioner "local-exec" {
+   command = "ansible-playbook -u ubuntu -i '${aws_instance.example.public_dns},' main.yml"
+ }
 }
